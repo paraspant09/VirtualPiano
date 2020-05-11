@@ -1,0 +1,301 @@
+body{
+  margin:0px;
+  background-size: cover;
+  background-color: grey;
+}
+/* navigation bar containing header and options menu*/
+#navbar{
+  background-color: black;
+  width:100%;
+  height:80px;
+  position: fixed;
+  top: 0px;
+}
+#heading{
+  width:40%;
+  text-align:center;
+  /* font-size:22px; */
+  line-height: 80px;
+  float:left;
+  color:white;
+  text-shadow:3px 3px 3px white;
+  letter-spacing: 10px;
+  cursor:pointer;
+  user-select: none;
+}
+/*all options in navbar*/
+.options{
+  width:auto;
+  height:100%;
+}
+/*options button/submit class*/
+.pressedNav{
+  all:unset;
+  text-align:center;
+  margin-right:-4px;
+  width:12%;
+  height:100%;
+  color:white;
+  font-size:20px;
+  cursor: pointer;
+  user-select: none;
+}
+#HELP{
+  cursor: help;
+}
+#playForm{
+  display: inline;
+}
+.pressedNav:hover{
+  background-color:white;
+  color:black;
+}
+.pressedNav:active{
+  background-color:darkgrey;
+}
+.pressedNav.active{
+  background-color:darkgrey;
+}
+
+/*piano body shell*/
+#pianobody{
+  width: 951px;
+  height: 270px;
+  border-radius: 10px;
+  background-image: linear-gradient(to bottom,black 50%,#595653);
+  margin: 40px auto;
+
+  display: grid;
+  grid-template-columns:repeat(3,33.3%);
+}
+/*CSS for other parts*/
+.image{
+  width:295px; /*895/3 -3(due to 3 margins)*/
+  height: 70px;      /*(270-180)-20*/
+  margin: auto;
+  margin-top: 10px;
+}
+.mid{
+  border-radius: 5px;
+  background-image: url("Logo.png");
+}
+.notmid{
+  width:255px;
+  background-image: url("speaker.png");
+}
+
+#pianobody #keys{
+  background-color: black;
+  display: flex;
+  /* justify-content: space-between; */
+  width: 95%;
+  height: 180px;
+  margin: auto;
+
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+.lowerkeys{
+  all:unset;
+  width: 35px;
+  height: inherit;
+  background-color: white;
+  box-shadow: 0px 7px 5px black;
+  z-index: 1;
+}
+.upperkeys{
+  all:unset;
+  width: 30px;
+  height: 110px;
+  background-image: linear-gradient(to bottom,black,#616161);
+  border-color: lightgrey;
+  box-shadow: 0px 7px 5px black;
+  margin-left: -14px;
+  z-index: 2;
+}
+.right{
+  margin-left: -14px;
+}
+
+/*OnHover and OnClick on Keys*/
+button.lowerkeys:hover{
+  background-color: #dbd3c8;
+}
+button.upperkeys:hover{
+  background-image: linear-gradient(to bottom,#4f4d4a,#616161);
+}
+.lowerkeys.active{
+  background-image: linear-gradient(to bottom,white,#7d7872);
+  box-shadow: 0px 0px 5px black;
+}
+.upperkeys.active{
+  background-image: linear-gradient(to bottom,#616161,#242322);
+  box-shadow: 0px 5px 5px #403a34;
+}
+
+/* logout & SaveRecord */
+.FormExtraButtons{
+  display: inline-block;
+}
+.ExtraButtons{
+  background-color: black;
+  width: 60px;
+  color: white;
+  border:none;
+  text-decoration: none;
+  padding: 10px;
+  margin-left: 0px;
+  font-weight: bold;
+  display: none;
+}
+/* rest body*/
+#restbody{
+  padding: 110px 0px;
+}
+/*signup and login box*/
+.box{
+  background-image:url(FormBox.jpg);
+  box-shadow:10px 10px 5px black;
+  filter:grayscale(100%);
+  width: 500px;
+  height: 400px;
+  margin:auto;
+  border-radius:5px;
+  border-style:solid;
+  border-color:lightgrey;
+}
+.form{
+  margin: auto;
+  padding:50px;
+}
+.formbox{
+  display:block;
+  margin: 50px auto;
+  border-radius:20px;
+  user-select: none;
+}
+.textbox{
+  padding-left:20px;
+  width:300px;
+  height:30px;
+}
+.submit{
+  width:325px;
+  height:40px;
+  background-color:black;
+  color:white;
+}
+
+#DropDownPlay{
+  position: absolute;
+  left: 150px;
+  right: 150px;
+  top: 80px;
+  z-index: 100;
+}
+
+.Content{
+  all:unset;
+  margin: 5px;
+  padding: 5px;
+  letter-spacing: 1px;
+  background-color: maroon;
+  color: white;
+  font-weight: bold;
+  border:2px solid black;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.Content:hover{
+  background-color: white;
+  color: maroon;
+}
+
+#HelpDoc{
+  width: 100%;
+  height: 100%;
+  background-color: lightgrey;
+  box-shadow: 5px 5px 5px black;
+  display: none;
+  position: absolute;
+  top: 80px;
+}
+
+#HelpDoc article{
+  margin: 20px;
+}
+
+#HelpDoc article img{
+  width: 80%;
+  margin: 30px;
+}
+
+footer{
+  color: white;
+  text-align: center;
+  position: fixed;
+  bottom: 0px;
+  background-color:black;
+  height: 50px;
+  width: 100%;
+}
+
+#icon{
+  all:unset;
+  text-decoration: none;
+  font-size:20px;
+  height: 80px;
+  color: white;
+  display:none;
+  cursor: pointer;
+  user-select: none;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+}
+
+@media (max-width: 955px){
+  #icon{
+    display: flex;
+  }
+  #heading{
+    width: 80%;
+  }
+  #options{
+    display: block;
+    height: 0px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease-out;
+  }
+  .pressedNav{
+    width: 100%;
+    background-color: white;
+    color: grey;
+  }
+  .pressedNav:hover{
+    background-color: lightgrey;
+    color: white;
+  }
+}
+@media (min-width: 955px) {
+  #options{
+    display: block;
+  }
+  #restbody{
+    position: static;
+    z-index: 0;
+  }
+}
+@media (max-width: 500px) {
+  .box{
+    width: 100%;
+  }
+  .textbox{
+    width: 100%;
+  }
+  .submit{
+    width: 100%;
+  }
+}
