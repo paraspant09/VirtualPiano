@@ -1,5 +1,4 @@
 <?php session_start();
-echo "1";
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -146,131 +145,26 @@ echo "1";
       echo "<script>SaveRecordDisplay()</script>";
     }
 
-    if(isset($_POST["recordBtn"])&&isset($_SESSION['username']))
+    if(isset($_POST["recordBtn"])&&isset($_SESSION['username']))    //For playing the selected record
     {
       $obj=$_POST['recordBtn'];
       echo "<script>Play('$obj')</script>";
     }
 
-    if(isset($_POST["PlayRecord"])&&isset($_SESSION['username']))
-    {
-      /*All database work */
-      try {
-          $con=new PDO('mysql:host=localhost;dbname=VirtualPiano;','root');
-          $con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
-          try{
-          $checkTable=$con->query("SELECT 1 FROM Records LIMIT 1");
-          }
-          catch(Exception $e)
-          {
-            echo "<script>alert('No table is created yet please save records.')</script>";
-            goto end;
-          }
-          $username=$_SESSION['username'];
-
-          $q="SELECT name,record FROM Records WHERE username='$username'";
-          $result=$con->query($q);
-          $ct=0;
-          while($assoc=$result->fetch(PDO::FETCH_ASSOC)){
-            $ct++;
-            $name=$assoc['name'];
-            $record=$assoc['record'];
-            echo "<script> PlaySetUp('$name',$record) </script>";
-          }
-          if(!$ct)
-          {
-            echo "<script> alert('Save records to play.') </script>";
-          }
-end:  }
-      catch (PDOException $e) {
-        $message=$e->getMessage();
-        echo "<script> alert(\"$message\") </script>";
-      }
-      finally{
-        $con=NULL;
-      }
-    }
-    elseif (isset($_POST["PlayRecord"])) {
-      echo "<script> alert('Login to play records.') </script>";
-    }
+    include 'PlayRecords.php';
 
     if(isset($_POST["Logout"])&&isset($_SESSION['username']))
     {
       $_SESSION['username']="";
       session_unset();
       session_destroy();
-      header("Location:FirstPage.php");
+
       echo "<script>LogoutHide()</script>";
       echo "<script>SaveRecordHide()</script>";
     }
 
 
-    /*SAVE DATABASE*/
-    if(isset($_POST["SaveRecord"])&&isset($_SESSION['username']))
-    {
-      if (isset($_COOKIE["record"])&&isset($_COOKIE["recordName"])) {
-        /*All database work */
-        try {
-          $con=new PDO('mysql:host=localhost;dbname=VirtualPiano;','root');
-          $con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
-          try{
-            $checkTable=$con->query("SELECT 1 FROM Records LIMIT 1");
-          }
-          catch(Exception $e)
-          {
-            $q="CREATE TABLE Records(name varchar(50) PRIMARY KEY,record varchar(10000) NOT NULL,username varchar(50) NOT NULL)";
-            $con->exec($q);
-          }
-
-          $username=$_SESSION['username'];
-          $recordName=$_COOKIE['recordName'];
-          $record=$_COOKIE['record'];
-
-          $q="SELECT name FROM Records WHERE name='$recordName' AND username='$username'";
-          $result=$con->query($q);
-          $assoc=$result->fetch();
-          if(empty($assoc))
-          {
-            $q="INSERT INTO Records(name,record,username) VALUES('$recordName','$record','$username')";
-            $con->exec($q);
-            echo "<script> alert('$recordName named record is saved.') </script>";
-            echo "<script>SaveRecordHide()</script>";
-          }
-          else {
-            echo "<script> alert('Record name is similar to previous record.') </script>";
-            echo "<script>SaveRecordHide()</script>";
-          }
-          echo "<script>document.cookie='recordName=;expires=Thu,01 Jan 1970 00:00:00 UTC;'</script>";
-          echo "<script>document.cookie='record=;expires=Thu,01 Jan 1970 00:00:00 UTC;'</script>";
-        }
-        catch (PDOException $e) {
-          $message=$e->getMessage();
-          echo "<script> alert(\"$message\") </script>";
-        }
-        finally{
-          $con=NULL;
-        }
-      }
-      echo "<script>LogoutDisplay()</script>";
-    }
-    else if(isset($_POST["SaveRecord"]))
-    {
-      if(isset($_COOKIE['recordName'])){
-        echo "<script>alert('Please login to save records.')</script>";
-        echo "<script>document.cookie='recordName=;expires=Thu,01 Jan 1970 00:00:00 UTC;'</script>";
-      }
-    }
-
-    if(!isset($_SESSION['username'])){
-      if(isset($_COOKIE['record'])){
-        echo "<script>document.cookie='record=;expires=Thu,01 Jan 1970 00:00:00 UTC;'</script>";
-      }
-      if(isset($_COOKIE['recordName'])){
-        echo "<script>document.cookie='recordName=;expires=Thu,01 Jan 1970 00:00:00 UTC;'</script>";
-      }
-    }
+    include 'SaveRecord.php';
 
     if(isset($_SESSION['username']))
     {
@@ -278,86 +172,8 @@ end:  }
     }
 
 
-    if ($_SERVER['REQUEST_METHOD']=='POST' && !isset($_SESSION['username'])) {
-      if (isset($_POST['Signup'])) {
-        $username=$_POST['username'];
-        $password=$_POST['password'];
+    include 'Register&Login.php';
 
-        try {
-          $con=new PDO('mysql:host=localhost;dbname=VirtualPiano;','root');
-          $con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
-          try{
-            $checkTable=$con->query("SELECT 1 FROM Pianoist LIMIT 1");
-          }
-          catch(Exception $e)
-          {
-            $q="CREATE TABLE Pianoist(username varchar(50) PRIMARY KEY,password varchar(50) NOT NULL)";
-            $con->exec($q);
-          }
-
-          $q="SELECT username FROM Pianoist WHERE username='$username'";
-          $result=$con->query($q);
-          $assoc=$result->fetch();
-          if(empty($assoc))
-          {
-            $q="INSERT INTO Pianoist(username,password) VALUES('$username','$password')";
-            $con->exec($q);
-            echo "<script> alert('Signed up as $username,Please Login.') </script>";
-          }
-          else {
-            echo "<script> alert('You are already signed up as $username.') </script>";
-          }
-        }
-        catch (PDOException $e) {
-          $message=$e->getMessage();
-          echo "<script> alert(\"$message\") </script>";
-        }
-        finally{
-          $con=NULL;
-        }
-      }
-      else if(isset($_POST['login'])){
-        $username=$_POST['username'];
-        $password=$_POST['password'];
-        try {
-          $con=new PDO('mysql:host=localhost;dbname=VirtualPiano;','root');
-          $con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
-          try{
-            $checkTable=$con->query("SELECT 1 FROM Pianoist LIMIT 1");
-          }
-          catch(Exception $e)
-          {
-            $q="CREATE TABLE Pianoist(username varchar(50) PRIMARY KEY,password varchar(50) NOT NULL)";
-            $con->exec($q);
-          }
-
-          $q="SELECT username FROM Pianoist WHERE username='$username' AND password='$password'";
-          $result=$con->query($q);
-          $assoc=$result->fetch();
-          if(!empty($assoc))
-          {
-              echo "<script> alert('Welcome $username.') </script>";
-              $_SESSION['username']=$username;
-              echo "<script>LogoutDisplay()</script>";
-          }
-          else {
-              echo "<script> alert('No Data Found.') </script>";
-          }
-        }
-        catch (PDOException $e) {
-          $message=$e->getMessage();
-          echo "<script> alert(\"$message\") </script>";
-        }
-        finally{
-          $con=NULL;
-        }
-      }
-    }
-    else if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_SESSION['username']) && !isset($_POST["PlayRecord"]) && !isset($_POST["SaveRecord"]) && !isset($_POST["recordBtn"])) {
-      echo "<script> alert('You are currently logged in,cannot Signup/Login.') </script>";
-    }
      ?>
 
   </body>
