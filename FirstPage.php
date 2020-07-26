@@ -116,7 +116,7 @@
       </form>
     </div>
 
-    <footer><p>Made By Paras Pant , Yash Kumar , Prateek Diwakar.</p></footer>
+    <footer><p>Made By Paras Pant.</p></footer>
 
     <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript">
