@@ -1,4 +1,5 @@
 var recording=false;
+var AUDIO_PATH = "res/audio/"
 var starttime;
 const record=new Map();
 const keys=[['192','C2.mp3'],['49','C2s.mp3'],['50','D2.mp3'],['51','D2s.mp3'],['52','E2.mp3'],['53','F2.mp3'],
@@ -28,7 +29,8 @@ for(const [keycode,note] of myMap.entries())
 function Click(note) {
 	if(document.getElementById("pianobody").style.display != "none")
 	{
-		var bleep=new Audio(note);
+		var notePath = AUDIO_PATH + note ;
+		var bleep=new Audio(notePath);
 		bleep.currenttime=0;
 		bleep.play();
 
@@ -53,8 +55,16 @@ function NewRecord(attime,note){
 
 function StartRecord() {
  removeElements();
+ 
+ var saveRecordEl = document.getElementById("SaveRecord");
+ if(saveRecordEl.style.display == "inline"){
+	 var consent = confirm("Are you sure? Your previous recording will be discarded!");
+	 if(!consent){
+		 return;
+	 }
+ }
  SaveRecordHide();
- PlayRecordHide();
+//  PlayRecordHide();
  HelpDocHide();
  ShowPianoBody();
 	let RecordButton=document.getElementById('Record/Stop');
@@ -122,19 +132,12 @@ function Play(val){
 
 		 ShowPianoBody();
 		 for(const [time,v] of mp.entries()){
-		 	setTimeout(()=>	Click(v+".mp3"),parseInt(time));
+		 	setTimeout(()=>	Click(v +".mp3"),parseInt(time));
 		 }
 }
 
 function Help(){
-removeElements();
-removePianoBody();
-PlayRecordHide();
 document.getElementById("HelpDoc").style.display="block";
-document.getElementById("restbody").style.padding="0px";
-//let restbody=document.getElementById("restbody");
-//restbody.style.height="612px";
-//restbody.style.padding="0px";
 }
 
 /*remove all created elements in box*/
@@ -150,88 +153,10 @@ function removeElements(){
 function ShowPianoBody(){
 	document.getElementById("pianobody").style.display="grid";
 }
+
 function removePianoBody(){
 	let pianobody=document.getElementById("pianobody");
 	pianobody.style.display="none";
-}
-
-/*create  signup and login popup*/
-function AuthStyleSheet(Register){
-	removeElements();
-	removePianoBody();
-	PlayRecordHide();
-	HelpDocHide();
-
-	let restbody=document.getElementById("restbody");
-	let div=document.createElement("div");
-	restbody.appendChild(div);
-	div.setAttribute("class","box");
-
-	let form=document.createElement("form");
-	div.appendChild(form);
-	let user=document.createElement("input");
-	let pass=document.createElement("input");
-	let submit=document.createElement("input");
-
-	form.appendChild(user);
-	form.appendChild(pass);
-	form.appendChild(submit);
-
-	user.setAttribute("name","username");
-	user.setAttribute("placeholder","Username");
-	user.setAttribute("type","text");
-	user.setAttribute("id","username");
-
-	pass.setAttribute("name","password");
-	pass.setAttribute("placeholder","Password");
-	pass.setAttribute("type","password");
-	pass.setAttribute("id","password");
-
-	submit.setAttribute("name",Register);
-	submit.setAttribute("value",Register);
-	submit.setAttribute("type","submit");
-	submit.setAttribute("id","Authenticate");
-
-	/*css style for sign  up or login box*/
-	form.setAttribute("class","form");
-	user.setAttribute("class","textbox formbox");
-	pass.setAttribute("class","textbox formbox");
-	submit.setAttribute("class","submit formbox");
-
-	submit.setAttribute("onclick","return Authentication()");
-	form.setAttribute("action","FirstPage.php");
-	form.setAttribute("method","post");
-}
-
-/*Check Credentials*/
-function Authentication(){
-	let user=document.getElementById("username");
-	let pass=document.getElementById("password");
-	if(user.value=="")
-	{
-		alert("Enter Username!!");
-		return false;
-	}
-	if(pass.value=="")
-	{
-		alert("Enter password!!");
-		return false;
-	}
-	if(pass.value.length<=6)
-	{
-		alert("Password length must be greater than 6!!");
-		return false;
-	}
-}
-
-function LogoutHide()
-{
-	document.getElementById("logout").style.display="none";
-}
-
-function LogoutDisplay()
-{
-	document.getElementById("logout").style.display="inline";
 }
 
 function SaveRecordHide()
@@ -256,7 +181,8 @@ function PlayRecordDisplay()
 
 function HelpDocHide(){
 	document.getElementById("HelpDoc").style.display="none";
-	document.getElementById("restbody").style.padding="110px 0px";
+	// document.getElementById("restbody").style.padding="110px 0px";
+	// ShowPianoBody();
 }
 
 window.matchMedia("(min-width: 955px)").addListener(()=>{		//remove inline styles made by clicking icon in small window or calling changeIcon()
@@ -289,3 +215,36 @@ function changeIcon(){
 		document.getElementById("DropDownPlay").style.display="none";
 	}
 }
+
+// // // Get the modal
+// // var modal = document.getElementById("myModal");
+
+// // // Get the button that opens the modal
+// // var btn = document.getElementById("myBtn");
+
+// // // Get the <span> element that closes the modal
+// // var span = document.getElementsByClassName("close")[0];
+
+// // When the user clicks on the button, open the modal
+// function modalShow(){
+// 	console.log("Clicked");
+// 	var modal = document.getElementById("myModal");
+// 	modal.style.display = "block";
+// }
+
+// // // When the user clicks on <span> (x), close the modal
+// // span.onclick = function() {
+// //   modal.style.display = "none";
+// // }
+
+// function modalClose(){
+// 	var modal = document.getElementById("myModal");
+	
+// 	let check=confirm("Are you sure you don't want to save record.");
+
+// 	if(check){
+// 		document.cookie='record=;expires=Thu,01 Jan 1970 00:00:00 UTC;';
+// 		modal.style.display = "none";
+// 	}
+// 	return;
+// }

@@ -1,9 +1,12 @@
 <?php
-      if(isset($_POST["PlayRecord"])&&isset($_SESSION['username']))
+      require 'config.php';
+      $dsn = "mysql:host=$host;dbname=$db;charset=UTF8";
+
+      if(isset($_SESSION['username']))
       {
         /*All database work */
         try {
-            $con=new PDO('mysql:host=localhost;dbname=VirtualPiano;','root');
+            $con=new PDO($dsn, $db_user, $db_password);
             $con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
             try{

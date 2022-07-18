@@ -1,45 +1,77 @@
-body{
+/* body{
   margin:0px;
   background-size: cover;
   background-color: grey;
+} */
+html{
+  height:100%;
+}
+body {
+  background: -webkit-linear-gradient(bottom, #3e3903, #022c1569);
+  background-size: cover;
+  overflow: hidden;
+  /* background-repeat: no-repeat; */
+
 }
 /* navigation bar containing header and options menu*/
 #navbar{
-  background-color: black;
+  background-color: rgba(10, 1, 1, 0.619);
   width:100%;
-  height:80px;
-  position: fixed;
+  height:fit-content;
+  position: absolute;
   top: 0px;
+  left: 0px;
 }
 #heading{
   width:40%;
   text-align:center;
-  /* font-size:22px; */
-  line-height: 80px;
+  font-size:22px;
+  line-height:80px;
   float:left;
   color:white;
-  text-shadow:3px 3px 3px white;
+  text-shadow:5px 5px 5px #efe813bb;
   letter-spacing: 10px;
   cursor:pointer;
-  user-select: none;
+  user-select: none;    
 }
+
+
 /*all options in navbar*/
 .options{
-  width:auto;
+  width:fit-content;
+  line-height:80px;
   height:100%;
+  float:right;
+  margin-right: 1%;
 }
 /*options button/submit class*/
 .pressedNav{
   all:unset;
   text-align:center;
-  margin-right:-4px;
-  width:12%;
+  margin-right:20px;
+  padding-left:30px;
+  padding-right:30px;
+  width:fit-content;
   height:100%;
   color:white;
   font-size:20px;
   cursor: pointer;
   user-select: none;
 }
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.flex-col{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #HELP{
   cursor: help;
 }
@@ -50,12 +82,17 @@ body{
   background-color:white;
   color:black;
 }
+a.pressedNav{
+  padding:30px;
+  margin-left: 2px;
+  margin-right:2px
+}
 .pressedNav:active{
   background-color:darkgrey;
 }
 .pressedNav.active{
   background-color:darkgrey;
-}
+}  
 
 /*piano body shell*/
 #pianobody{
@@ -77,11 +114,11 @@ body{
 }
 .mid{
   border-radius: 5px;
-  background-image: url("Logo.png");
+  background-image: url("../images/Logo.png");
 }
 .notmid{
   width:255px;
-  background-image: url("speaker.png");
+  background-image: url("../images/speaker.png");
 }
 
 #pianobody #keys{
@@ -152,9 +189,10 @@ button.upperkeys:hover{
 #restbody{
   padding: 110px 0px;
 }
-/*signup and login box*/
+
+/* signup and login box
 .box{
-  background-image:url(FormBox.jpg);
+  background-image:url("../images/FormBox.jpg");
   box-shadow:10px 10px 5px black;
   filter:grayscale(100%);
   width: 500px;
@@ -184,32 +222,35 @@ button.upperkeys:hover{
   height:40px;
   background-color:black;
   color:white;
-}
+} */
 
 #DropDownPlay{
-  position: absolute;
-  left: 150px;
-  right: 150px;
-  top: 80px;
-  z-index: 100;
+  width:70%;
+  display:flex;
+  flex-direction: column;
+  overflow-y:scroll;
+  height:400px;
+  scrollbar-color: #827001 rgba(10, 1, 1, 0.619);
+  scrollbar-width: thin;
 }
 
 .Content{
   all:unset;
   margin: 5px;
-  padding: 5px;
-  letter-spacing: 1px;
-  background-color: maroon;
-  color: white;
-  font-weight: bold;
-  border:2px solid black;
-  border-radius: 15px;
-  cursor: pointer;
+  padding: 15px;
+  letter-spacing: 5px;
+  background: -webkit-linear-gradient(bottom, #3e3903, #022c1569);
+  color:rgb(238, 234, 15);
+  opacity: 0.9;
+  /* font-weight: bold; */
+  /* border:2px solid black; */
+ border-radius: 10px;   
+ cursor: pointer;
 }
 
 .Content:hover{
-  background-color: white;
-  color: maroon;
+  box-shadow: 0px 0px 0px 2px  #efe813bb;
+  color: rgb(189, 142, 142);
 }
 
 #HelpDoc{
@@ -220,6 +261,7 @@ button.upperkeys:hover{
   display: none;
   position: absolute;
   top: 80px;
+  z-index: 4;
 }
 
 #HelpDoc article{
@@ -229,16 +271,6 @@ button.upperkeys:hover{
 #HelpDoc article img{
   width: 80%;
   margin: 30px;
-}
-
-footer{
-  color: white;
-  text-align: center;
-  position: fixed;
-  bottom: 0px;
-  background-color:black;
-  height: 50px;
-  width: 100%;
 }
 
 #icon{
@@ -299,3 +331,123 @@ footer{
     width: 100%;
   }
 }
+
+.player-btn {
+  background: -webkit-linear-gradient(right, #efe813bb, #022c1569);
+  border: none;
+  border-radius: 21px;
+  /* box-shadow: 0px 1px 8px #24c64f; */
+  cursor: pointer;
+  color: white;
+  font-family: "Raleway SemiBold", sans-serif;
+  height: 42.3px;
+  margin-left:25px ;
+  margin-right:25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  transition: 0.25s;
+  /* font-weight: bold; */
+  width: 153px;
+  letter-spacing: 3px;
+  
+}
+.player-btn:hover {
+  box-shadow: 0px 1px 18px #efe813bb;
+}
+
+
+ /* The Modal (background) */
+ .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+} 
+
+.form {
+  align-items: left;
+  display: flex;
+  flex-direction: column;
+}
+.form-border {
+  background: -webkit-linear-gradient(right, #efe813bb, #022c1569);
+  height: 1px;
+  width: 100%;
+}
+.form-content {
+  background: #fbfbfb;
+  border: none;
+  outline: none;
+  padding-top: 14px;
+}
+.underline-title {
+  background: -webkit-linear-gradient(right, #efe813bb, #022c1569);
+  height: 2px;
+  margin: -1.1rem auto 0 auto;
+  width: 89px;
+}
+
+/*Modal button*/
+.modal-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+
+}
+
+.submit-btn {
+  background: -webkit-linear-gradient(right, #efe813bb, #022c1569);
+  border: none;
+  border-radius: 21px;
+  /* box-shadow: 0px 1px 8px #24c64f; */
+  cursor: pointer;
+  color: white;
+  font-family: "Raleway SemiBold", sans-serif;
+  height: 42.3px;
+  margin: 0 auto;
+  margin-top: 50px;
+  transition: 0.25s;
+  width: 153px;
+}
+#submit-btn:hover {
+  box-shadow: 0px 1px 18px #efe813bb;
+}
+
