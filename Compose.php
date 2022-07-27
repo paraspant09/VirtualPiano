@@ -21,12 +21,6 @@
             <a class="pressedNav" href="Dashboard.php">DASHBOARD</a>
             <a class="pressedNav" href="Search.php"> SEARCH </a>
             <a class="pressedNav" href="Compose.php">COMPOSE</a>
-            <!-- <form id="playForm" action="FirstPage.php" method="post">
-                <button type="submit" id="PLAY" name="PlayRecord" value="Yes" class="pressedNav">PLAY</button>
-            </form> -->
-
-            <!-- <button type="button" id="SIGNUP" class="pressedNav" onclick="AuthStyleSheet('Signup')">SIGN UP</button>
-            <button type="button" id="LOGIN"  class="pressedNav" onclick="AuthStyleSheet('login')">LOGIN</button> -->
             <form id="playForm" action="Register&Login.php" method="post">
                 <button type="submit" name="Logout" value="Logout" class="pressedNav">LOGOUT</button>
             </form>
@@ -136,7 +130,7 @@
             <label for="recordName" style="padding-top:13px; padding-bottom:13px">
                                   &nbsp;Record Name
             </label>
-            <input id="recordName" class="form-content" type="text" name="recordName" required />
+            <input id="recordName" class="form-content" type="text" name="recordName" value='My Song' required />
             <div class="form-border"></div>
             <label for="visibility" style="padding-top:13px; padding-bottom:13px">
                                   &nbsp;Visibility
@@ -152,12 +146,12 @@
       </div>
     </div>
 
-    <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript">
       function modalShow(){
         console.log("Clicked");
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
+        detachKeyDown();
       }
       function modalClose(){
         var modal = document.getElementById("myModal");
@@ -169,6 +163,7 @@
           SaveRecordHide();
           modal.style.display = "none";
         }
+        attachKeyDown();
         return;
       }
       function Prompt() {
@@ -189,7 +184,10 @@
         }while(rcord==""||rcord==null);
         document.cookie="recordName="+rcord;
       }
+      
     </script>
+    <script type="text/javascript" src="script.js"></script>
+
     <?php
     if(isset($_COOKIE["record"])&&isset($_COOKIE["recordName"])&&isset($_SESSION['username']))
     {

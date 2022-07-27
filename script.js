@@ -13,18 +13,27 @@ const keys=[['192','C2.mp3'],['49','C2s.mp3'],['50','D2.mp3'],['51','D2s.mp3'],[
 
 const myMap = new Map(keys);
 
-document.addEventListener('keydown',(event)=>{
-if(event.repeat) return;
-for(const [keycode,note] of myMap.entries())
-{
-	if(event.which==keycode)
+function keyPlayer(event){
+	if(event.repeat) return;
+	for(const [keycode,note] of myMap.entries())
 	{
-		Click(note);
-		break;
+		if(event.which==keycode)
+		{
+			Click(note);
+			break;
+		}
 	}
 }
-});
+document.addEventListener('keydown',keyPlayer);
 
+function attachKeyDown(){
+	document.addEventListener('keydown', keyPlayer);
+}
+
+
+function detachKeyDown(){
+	document.removeEventListener('keydown', keyPlayer);
+}
 
 function Click(note) {
 	if(document.getElementById("pianobody").style.display != "none")
@@ -215,36 +224,3 @@ function changeIcon(){
 		document.getElementById("DropDownPlay").style.display="none";
 	}
 }
-
-// // // Get the modal
-// // var modal = document.getElementById("myModal");
-
-// // // Get the button that opens the modal
-// // var btn = document.getElementById("myBtn");
-
-// // // Get the <span> element that closes the modal
-// // var span = document.getElementsByClassName("close")[0];
-
-// // When the user clicks on the button, open the modal
-// function modalShow(){
-// 	console.log("Clicked");
-// 	var modal = document.getElementById("myModal");
-// 	modal.style.display = "block";
-// }
-
-// // // When the user clicks on <span> (x), close the modal
-// // span.onclick = function() {
-// //   modal.style.display = "none";
-// // }
-
-// function modalClose(){
-// 	var modal = document.getElementById("myModal");
-	
-// 	let check=confirm("Are you sure you don't want to save record.");
-
-// 	if(check){
-// 		document.cookie='record=;expires=Thu,01 Jan 1970 00:00:00 UTC;';
-// 		modal.style.display = "none";
-// 	}
-// 	return;
-// }
